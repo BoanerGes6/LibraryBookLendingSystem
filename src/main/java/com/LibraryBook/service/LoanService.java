@@ -1,6 +1,8 @@
 package com.LibraryBook.service;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +13,7 @@ import com.LibraryBook.entity.Book;
 import com.LibraryBook.entity.Loan;
 import com.LibraryBook.entity.LoanStatus;
 import com.LibraryBook.entity.Member;
+import com.LibraryBook.exceptions.BookLimitExceedException;
 import com.LibraryBook.exceptions.BookNotFound;
 import com.LibraryBook.exceptions.MemberNotFound;
 import com.LibraryBook.repository.BookRepository;
@@ -34,7 +37,7 @@ public class LoanService {
 
 	
 	public ResponseEntity<?> borrow(Long bookId, Long memId) {
-			
+		
 			Book book = bookRepo.findById(bookId).orElseThrow(() -> 
 					new BookNotFound("Book Not Found or Currently Unavailable"));
 			

@@ -29,4 +29,13 @@ public class GlobalExceptionHandler {
 						"message", ex.getMessage()
 						));
 	}
+	@ExceptionHandler(BookLimitExceedException.class)
+	public ResponseEntity<?> HandleBookLimitExceedException(BookLimitExceedException ex) {
+		return ResponseEntity.status(HttpStatus.NOT_FOUND)
+				.body(Map.of(
+						"status" , 404,
+						"error", "Not Found",
+						"message", ex.getMessage()
+						));
+	}
 }
