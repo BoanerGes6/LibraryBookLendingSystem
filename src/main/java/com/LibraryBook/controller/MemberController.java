@@ -29,8 +29,4 @@ public class MemberController {
 		return memberService.addMember(member);
 	}
 	
-	@PostMapping("/borrowBook")
-	public void borrowBook(@RequestParam Long bookId) {
-		memberService.borrow(bookId);
-	}
 }

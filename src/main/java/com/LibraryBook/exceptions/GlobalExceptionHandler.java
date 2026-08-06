@@ -20,4 +20,13 @@ public class GlobalExceptionHandler {
 						));
 	}
 
+	@ExceptionHandler(MemberNotFound.class)
+	public ResponseEntity<?> HandleMemberNotFound(MemberNotFound ex) {
+		return ResponseEntity.status(HttpStatus.NOT_FOUND)
+				.body(Map.of(
+						"status" , 404,
+						"error", "Not Found",
+						"message", ex.getMessage()
+						));
+	}
 }
