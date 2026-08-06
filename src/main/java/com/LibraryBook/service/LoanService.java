@@ -37,6 +37,14 @@ public class LoanService {
 
 	
 	public ResponseEntity<?> borrow(Long bookId, Long memId) {
+			
+			Optional<List<Loan>> loanedBooks = loanRepo.findAllByMemberId(memId);
+			if (loanedBooks.isPresent()) {
+				List<Loan> loans = loanedBooks.get();
+				if (loans.size() >= 3) {
+					throw new BookLimitExceedException("you have Exceeded the Book Borrowing limit");
+				}
+			}
 		
 			Book book = bookRepo.findById(bookId).orElseThrow(() -> 
 					new BookNotFound("Book Not Found or Currently Unavailable"));
